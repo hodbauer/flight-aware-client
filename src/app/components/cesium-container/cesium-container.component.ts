@@ -1,26 +1,29 @@
-
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ApolloConnectorService} from '../../services/apollo-connector/apollo-connector.service';
+import {Observable} from 'rxjs/Observable';
+import {FlightTrack} from '../../interfaces/flight-track';
+import {CesiumViewerService} from '../../services/cesium-viewer/cesium-viewer.service';
 
 @Component({
   selector: 'app-cesium-container',
   templateUrl: './cesium-container.component.html',
   styleUrls: ['./cesium-container.component.css']
 })
-export class CesiumContainerComponent implements AfterViewInit {
-  cesiumId = 'cesiumContainer';
-  private viewer:any;
+export class CesiumContainerComponent implements OnInit, AfterViewInit {
+  cesiumId;
+  departures:Observable<FlightTrack[]>;
+
+  constructor(private apolloConnectorService:ApolloConnectorService, private cesiumViewerService:CesiumViewerService) {
+  }
+
+  ngOnInit() {
+    this.cesiumId = this.cesiumViewerService.id;
+  }
 
   ngAfterViewInit():void {
     this.initHomeLocation();
-    this.viewer = new Cesium.Viewer(this.cesiumId, {
-      timeline: false,
-      animation: false,
-      sceneModePicker: false,
-      navigationHelpButton: false,
-      navigationInstructionsInitiallyVisible: false,
-      geocoder: false,
-      baseLayerPicker: false
-    });
+
+    this.departures = this.apolloConnectorService.getDepartures('LLBG');
   }
 
   private initHomeLocation():void {

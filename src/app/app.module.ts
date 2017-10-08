@@ -1,18 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {ApolloModule} from 'apollo-angular';
 
-import { AppComponent } from './app.component';
-import { CesiumContainerComponent } from './components/cesium-container/cesium-container.component';
+import {AppComponent} from './app.component';
+import {CesiumContainerComponent} from './components/cesium-container/cesium-container.component';
+import {provideClient} from './apollo/init-client';
+import {FlightTrackComponent} from './components/flight-track/flight-track.component';
+import {ApolloConnectorService} from './services/apollo-connector/apollo-connector.service';
+import { TracksComponent } from './components/tracks/tracks.component';
+import {CesiumViewerService} from './services/cesium-viewer/cesium-viewer.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CesiumContainerComponent
+    CesiumContainerComponent,
+    FlightTrackComponent,
+    TracksComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ApolloModule.forRoot(provideClient)
   ],
-  providers: [],
+  providers: [ApolloConnectorService, CesiumViewerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
