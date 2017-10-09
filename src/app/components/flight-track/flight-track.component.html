@@ -1,3 +1,5 @@
-<p>
-  flight-track works!
-</p>
+<ng-container *ngIf="falldown">
+  <app-flight-crash [firstPoint]="track.track[track.track.length - 1]"
+                    [secondPoint]="track.track[track.track.length - 2]">
+  </app-flight-crash>
+</ng-container>

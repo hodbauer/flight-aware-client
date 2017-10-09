@@ -7,6 +7,7 @@ import {getDeparturesQuery} from '../../apollo/queries/get-departures';
 import {FlightTrack} from '../../interfaces/flight-track';
 import {mockSubscription} from '../../apollo/subscriptions/mock';
 import {trackUpdatedSubscription} from '../../apollo/subscriptions/track-updated';
+import {shooingDownMutation} from '../../apollo/mutation/shooting-down';
 
 @Injectable()
 export class ApolloConnectorService {
@@ -32,5 +33,12 @@ export class ApolloConnectorService {
       query: trackUpdatedSubscription,
       variables: {faFlightID}
     });
+  }
+
+  shootingDownAirplane(faFlightID:string):Observable<boolean> {
+    return this.apollo.mutate<any>({
+      mutation: shooingDownMutation,
+      variables: {faFlightID}
+    }).map(result => result.data.shootingDownAirplane);
   }
 }

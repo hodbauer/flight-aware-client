@@ -12,7 +12,9 @@ export class CesiumViewerService {
       navigationHelpButton: false,
       navigationInstructionsInitiallyVisible: false,
       geocoder: false,
-      baseLayerPicker: false
+      baseLayerPicker: false,
+      infoBox: false,
+      selectionIndicator: false
     });
   }
 
