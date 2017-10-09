@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 import {getDeparturesQuery} from '../../apollo/queries/get-departures';
 import {FlightTrack} from '../../interfaces/flight-track';
+import {mockSubscription} from '../../apollo/subscriptions/mock';
 
 @Injectable()
 export class ApolloConnectorService {
@@ -13,10 +14,15 @@ export class ApolloConnectorService {
   }
 
   getDepartures(airportCode:string):Observable<FlightTrack[]> {
-    return this.apollo.query<{getDepartures:FlightTrack[]}>({
+    return this.apollo.query<{ getDepartures:FlightTrack[] }>({
       query: getDeparturesQuery,
       variables: {airportCode}
     }).map(result => result.data.getDepartures);
   }
 
+  mockSub() {
+    return this.apollo.subscribe({
+      query: mockSubscription
+    });
+  }
 }

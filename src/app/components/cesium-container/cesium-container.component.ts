@@ -24,6 +24,9 @@ export class CesiumContainerComponent implements OnInit, AfterViewInit {
     this.initHomeLocation();
 
     this.departures = this.apolloConnectorService.getDepartures('LLBG');
+    this.apolloConnectorService.mockSub().subscribe(result => {
+      console.log(result);
+    });
   }
 
   private initHomeLocation():void {

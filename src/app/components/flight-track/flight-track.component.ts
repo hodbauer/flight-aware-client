@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {FlightTrack} from '../../interfaces/flight-track';
 import {CesiumViewerService} from '../../services/cesium-viewer/cesium-viewer.service';
 
@@ -7,14 +7,10 @@ import {CesiumViewerService} from '../../services/cesium-viewer/cesium-viewer.se
   templateUrl: './flight-track.component.html',
   styleUrls: ['./flight-track.component.css']
 })
-export class FlightTrackComponent implements OnInit, AfterViewInit {
+export class FlightTrackComponent implements AfterViewInit {
   @Input() track:FlightTrack;
 
   constructor(private cesiumViewerService:CesiumViewerService) {
-  }
-
-  ngOnInit() {
-    console.log(this.track);
   }
 
   ngAfterViewInit():void {
